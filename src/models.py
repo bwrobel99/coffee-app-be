@@ -19,11 +19,11 @@ class Coffee(Base):
     __tablename__ = "coffees"
 
     id: Mapped[IntPrimaryKey]
-    name: str
-    description: str
-    size: CoffeeSize
-    price: float
-    discount: float = mapped_column(default=0)
+    name: Mapped[str]
+    description: Mapped[str]
+    size: Mapped[CoffeeSize]
+    price: Mapped[float]
+    discount: Mapped[float] = mapped_column(default=0)
 
 
 class Order(Base):
