@@ -24,14 +24,7 @@ class Coffee(Base):
     size: Mapped[CoffeeSize]
     price: Mapped[float]
     discount: Mapped[float] = mapped_column(default=0)
-
-
-class Order(Base):
-    __tablename__ = "orders"
-
-    id: Mapped[IntPrimaryKey]
-
-    coffees: Mapped[list[Coffee]] = relationship(secondary="orders_coffees")
+    favorite: Mapped[bool] = mapped_column(default=False)
 
 
 class OrderCoffee(Base):
@@ -41,3 +34,13 @@ class OrderCoffee(Base):
 
     order_id: Mapped[int] = mapped_column(ForeignKey("orders.id"))
     coffee_id: Mapped[int] = mapped_column(ForeignKey("coffees.id"))
+    quantity: Mapped[int] = mapped_column(default=1)
+
+
+class Order(Base):
+    __tablename__ = "orders"
+
+    id: Mapped[IntPrimaryKey]
+
+    coffees: Mapped[list[Coffee]] = relationship(secondary="orders_coffees")
+    order_coffees: Mapped[list[OrderCoffee]] = relationship()
